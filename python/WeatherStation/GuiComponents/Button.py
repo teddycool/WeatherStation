@@ -67,7 +67,7 @@ class Button:
           (self.rect[0]+(self.rect[2]-self.iconFg.get_width())/2,
            self.rect[1]+(self.rect[3]-self.iconFg.get_height())/2))
 
-      myFontSize = 30
+      myFontSize = 20
       myfont = pygame.font.SysFont("Arial", myFontSize)
       label = myfont.render(self.text, 1, (255,255,255))
       posX = self.rect[0]+(self.rect[2]-self.iconFg.get_width())/2 + 10

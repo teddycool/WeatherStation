@@ -1,13 +1,14 @@
-
+__author__ = 'teddycool'
 #http://www.modmypi.com/blog/ds18b20-one-wire-digital-temperature-sensor-and-the-raspberry-pi
 import os
 import time
+
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
 
-class TempSensor(object):
+class DS18B20(object):
     
-    def __init__(self, serial="28-03146af27cff"):
+    def __init__(self, serial):
         self._serial = serial
         self._sensorfile= "/sys/bus/w1/devices/" + self._serial + "/w1_slave"
 
@@ -31,9 +32,11 @@ class TempSensor(object):
             temp_f = temp_c * 9.0 / 5.0 + 32.0
             return temp_c, temp_f
 
+
 if __name__ == '__main__':
-    print "Testcode for TempSensor"
-    ts=TempSensor()
-    while True:
-            print(ts.read_temp())
-            time.sleep(1)
+    print "Testcode for DS18B20"
+    serial = "28-03146af27cff"
+    print "Serial: " + serial
+    ts=DS18B20(serial)
+    print(ts.read_temp())
+    print(ts.temp_raw())
