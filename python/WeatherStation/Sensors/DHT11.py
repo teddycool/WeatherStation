@@ -1,4 +1,4 @@
-__author__ = 'psk'
+__author__ = 'teddycool'
 #http://www.uugear.com/portfolio/dht11-humidity-temperature-sensor-module/
 
 import RPi.GPIO as GPIO

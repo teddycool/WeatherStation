@@ -1,4 +1,4 @@
-__author__ = 'psk'
+__author__ = 'teddycool'
 #!/usr/bin/python
 
 import smbus

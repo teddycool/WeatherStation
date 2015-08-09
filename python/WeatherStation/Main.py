@@ -1,7 +1,7 @@
 __author__ = 'teddycool'
 
 import os, sys, pygame
-
+import time
 import MainLoop
 
 
@@ -37,12 +37,14 @@ class Main(object):
         stopped = False
         running=True
         while not stopped:
+            #TODO: add  keyboard catch for abort, ctrl-c
             black=0,0,0
             self.screen.fill(black)
-
             self._mainLoop.update(self.screen)
             self._mainLoop.draw(self.screen)
             pygame.display.flip()
+            #TODO: set framerate based on time for each frame
+            time.sleep(0.1)
 
 
 
