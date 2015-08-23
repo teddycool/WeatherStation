@@ -10,10 +10,10 @@ class FridgeFreezerTrend(StateLoopBase):
         return
 
     def initialize(self, sensors):
-        self.currentValues = Button.Button((20,210,50, 10))
+        self.currentValues = Button.Button((240,20,70, 10))
         self.currentValues.color=(0,255,0)
         self.currentValues.iconFg= pygame.image.load("icons/Frame_Down.png")
-        self.currentValues.text= "Aktuella"
+        self.currentValues.text= "Tillbaka->"
         self.headlinelable =  self.myNormalFont.render("Trender senaste dygnet:", 1, config["Colors"]["Lables"])
         self.fridgetempuplable = self.myMediumFont.render("Ovre delen av kylen:", 1, config["Colors"]["Lables"])
         self.fridgetempdownlable = self.myMediumFont.render("Nedre delen av kylen:", 1, config["Colors"]["Lables"])

@@ -8,7 +8,7 @@ class StateLoopBase(object):
         self.myNormalFont = pygame.font.SysFont("Comic", 25)
         self.myMediumFont = pygame.font.SysFont("Comic", 15)
         self.mySmallFont = pygame.font.SysFont("Comic", 10)
-        self.myButtonFont = pygame.font.SysFont("Comic", 20)
+        self.myButtonFont = pygame.font.SysFont("Comic", 10)
         self.stateButtons = []
 
     def initialize(self):
@@ -29,7 +29,7 @@ class StateLoopBase(object):
         return
 
     def update_sensors(self):
-        #update all sensorvalues
+        #update stateloopvalues
         return
 
     def prepareTrendList(self, valuelist):

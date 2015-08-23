@@ -24,6 +24,7 @@ class MainLoop(object):
         self._currentState = self._state["CurrentValues"]
         self._lastSensorUpdate = 0
         self._lastServerPush = 0
+        self._lastScreenUpdate = 0
         return
 
     def initialize(self):
@@ -36,7 +37,8 @@ class MainLoop(object):
         print "Station started at ", self.time
 
     def update(self,screen):
-        if time.time() - self._lastSensorUpdate > config["UpdateInterval"]["Screen"]:
+        pos=(0,0)
+        if time.time() - self._lastSensorUpdate > config["UpdateInterval"]["Sensors"]:
             self._sensors.update()
             self._lastSensorUpdate = time.time()
         if time.time() - self._lastServerPush > config["UpdateInterval"]["Server"]:
@@ -47,13 +49,16 @@ class MainLoop(object):
                 sys.exit()
             if(event.type is MOUSEBUTTONDOWN):
                 pos = pygame.mouse.get_pos()
-                newstate = self._currentState.update(pos)
-                if newstate != None:
-                    self._changeState(newstate)
+        newstate = self._currentState.update(pos)
+        if newstate != None:
+            self._changeState(newstate)
         return
 
     def draw(self, screen):
-        self._currentState.draw(screen, self._sensors)
+        if time.time() - self._lastSensorUpdate > config["UpdateInterval"]["Screen"]:
+            black=0,0,0
+            screen.fill(black)
+            self._currentState.draw(screen, self._sensors)
         return screen
 
     def _changeState(self, newstate):

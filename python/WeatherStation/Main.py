@@ -14,32 +14,23 @@ class Main(object):
             os.putenv('SDL_FBDEV'      , '/dev/fb1')
             os.putenv('SDL_MOUSEDRV'   , 'TSLIB')
             os.putenv('SDL_MOUSEDEV'   , '/dev/input/touchscreen')
+        print "Init pygame..."
         pygame.init()
         pygame.mouse.set_visible(False)
         print "Init Main object..."
-        #Size of application window
-        self.dwidth = 320
-        self.dheight = 240
         self._mainLoop=MainLoop.MainLoop()
+        print "Setup screen"
+        self.screen = pygame.display.set_mode((320,240))
 
 
     def run(self):
-        #Init and set up variables...
-        print "Init pygame..."
+        print "Start run-loop..."
 
-        print "Setup screen"
-        self.screen = pygame.display.set_mode((self.dwidth,self.dheight))
         self._mainLoop.initialize()
-        self.size=(self.dwidth, self.dheight)
-
-        black = 0, 0, 0
-        #Init gamestate
         stopped = False
-        running=True
         while not stopped:
             #TODO: add  keyboard catch for abort, ctrl-c
-            black=0,0,0
-            self.screen.fill(black)
+
             self._mainLoop.update(self.screen)
             self._mainLoop.draw(self.screen)
             pygame.display.flip()
