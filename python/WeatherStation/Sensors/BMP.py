@@ -9,14 +9,16 @@ class BMP(object):
         self._sensor = BMP085.BMP085()
 
 
-
     def readPressure(self):
-        return float('{0:0.2f}'.format(self._sensor.read_pressure()))
+        return float('{0:0.2f}'.format(self._sensor.read_pressure()/100.0))
+
+    def readTemperature(self):
+        return float('{0:0.2f}'.format(self._sensor.read_temperature()))
 
 
 if __name__ == '__main__':
     print "Testcode for BMP085 barometric"
     bmp = BMP()
     pres = bmp.readPressure()
-    print type(pres)
-    print pres/100
+    temp= bmp.readTemperature()
+    print str(pres) + "hPa " + str(temp) + "C "

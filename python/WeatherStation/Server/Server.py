@@ -7,5 +7,5 @@ class Server(object):
 
     def push(self, sensors):
         print "Pushing values to server"
-        #Build url from sensorvalues
+        #Build url from sensorvalues and timestamp ('pi-time')
         return

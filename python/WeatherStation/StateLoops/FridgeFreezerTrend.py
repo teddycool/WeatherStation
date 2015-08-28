@@ -18,19 +18,22 @@ class FridgeFreezerTrend(StateLoopBase):
         self.fridgetempuplable = self.myMediumFont.render("Ovre delen av kylen:", 1, config["Colors"]["Lables"])
         self.fridgetempdownlable = self.myMediumFont.render("Nedre delen av kylen:", 1, config["Colors"]["Lables"])
         self.freezertemplable = self.myMediumFont.render("Frysen:", 1, config["Colors"]["Lables"])
-        self._fridgeTrendlist = self.prepareTrendList(sensors.sensorvaluesdict["FridgeTempUpper"]["TrendList"])
+        self._fridgeTrendUplist = self.prepareTrendList(sensors.sensorvaluesdict["FridgeTempUpper"]["TrendList"])
+        self._fridgeTrendDownlist = self.prepareTrendList(sensors.sensorvaluesdict["FridgeTempLower"]["TrendList"])
 
 
     def update(self,mousepressedpos):
         if self.currentValues.selected(mousepressedpos):
             return "CurrentValues"
-        return None
+        else:
+            return None
 
 
     def draw(self, screen, sensors):
 
         pygame.draw.rect(screen,(255,0,0),pygame.Rect(0, 0, 320, 240),5 )
-        self.drawTrend(screen, self._fridgeTrendlist,55,4,10,(0,255,0))
+        self.drawTrend(screen, self._fridgeTrendUplist,55,4,10,(0,255,0))
+        self.drawTrend(screen, self._fridgeTrendDownlist,105,4,10,(0,255,0))
         screen.blit(self.headlinelable, (10,5))
         screen.blit(self.fridgetempuplable, (10,30))
         screen.blit(self.fridgetempdownlable, (10, 90))
