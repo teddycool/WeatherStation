@@ -57,28 +57,25 @@ class Sensors(object):
 
            # self.sensorvaluesdict["FridgeTempUpper"]["TrendList"] = self._updateValuesList(self.sensorvaluesdict["FridgeTempUpper"]["Current"], self.sensorvaluesdict["FridgeTempUpper"]["TrendList"] )
         else:
-            self.sensorvaluesdict["FridgeTempUpper"]["Current"] = random.uniform(5,10)
-            self.sensorvaluesdict["FridgeTempLower"]["Current"] = random.uniform(5,10)
-            self.sensorvaluesdict["FreezerTemp"]["Current"] = random.uniform(-22,-5)
-            self.sensorvaluesdict["IndoorHum"]["Current"] = random.uniform(10,90)
-            self.sensorvaluesdict["IndoorTemp"]["Current"] = random.uniform(17,25)
-            self.sensorvaluesdict["OutdoorHum"]["Current"] = random.uniform(10,90)
-            self.sensorvaluesdict["OutdoorTemp"]["Current"] = random.uniform(-20,25)
-            self.sensorvaluesdict["OutdoorBar"]["Current"] = random.uniform(900,1020)
-            #TODO: Handle exception when value is not a float (missing value/broken sensor/out of range etc)
+            self.sensorvaluesdict["FridgeTempUpper"]["Current"] = str(round(random.uniform(5,10),1))
+            self.sensorvaluesdict["FridgeTempLower"]["Current"] = str(round(random.uniform(5,10),1))
+            self.sensorvaluesdict["FreezerTemp"]["Current"] = str(round(random.uniform(-22,-5),1))
+            self.sensorvaluesdict["IndoorHum"]["Current"] = str(round(random.uniform(10,90),1))
+            self.sensorvaluesdict["IndoorTemp"]["Current"] = str(round(random.uniform(17,25),1))
+            self.sensorvaluesdict["OutdoorHum"]["Current"] = str(round(random.uniform(10,90),1))
+            self.sensorvaluesdict["OutdoorTemp"]["Current"] = str(round(random.uniform(-20,25),1))
+            self.sensorvaluesdict["OutdoorBar"]["Current"] = str(round(random.uniform(90,102),1))
         for key in self.sensorvaluesdict:
-            #self.sensorvaluesdict[key]["Current"] = round(self.sensorvaluesdict[key]["Current"],1)
             self.sensorvaluesdict[key]["TrendList"] = self._updateValuesList(self.sensorvaluesdict[key]["Current"], self.sensorvaluesdict[key]["TrendList"] )
-        #self.sensorvaluesdict["IndoorHum"]["TrendList"] = self._updateValuesList(self.sensorvaluesdict["IndoorHum"]["Current"], self.sensorvaluesdict["IndoorHum"]["TrendList"] )
         print "Updating sensor values finished: " + str(time.time())
-        return
 
     def _updateValuesList(self,value, valuelist):
         #TODO: add timestamp?
-        valuelist.append(value)
-        if (len(valuelist)> config["MaxSavedValues"]):
-            valuelist.pop(0)
-        return valuelist
+        if value != "N/A":
+            valuelist.append(float(value))
+            if (len(valuelist)> config["MaxSavedValues"]):
+                valuelist.pop(0)
+            return valuelist
 
     def urlString(self):
         url = "?time=" + time.strftime("%Y-%m-%d %H:%M:%S") + "&"
