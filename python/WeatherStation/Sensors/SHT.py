@@ -38,22 +38,30 @@ class SHT21:
         time.sleep(0.050)
 
     def read_temperature(self):
-        """Reads the temperature from the sensor.  Not that this call blocks
-        for ~86ms to allow the sensor to return the data"""
-        self.i2c.write(chr(self._TRIGGER_TEMPERATURE_NO_HOLD))
-        time.sleep(self._TEMPERATURE_WAIT_TIME)
-        data = self.i2c.read(3)
-        if self._calculate_checksum(data, 2) == ord(data[2]):
-            return self._get_temperature_from_buffer(data)
+        try:
+            """Reads the temperature from the sensor.  Not that this call blocks
+            for ~86ms to allow the sensor to return the data"""
+            self.i2c.write(chr(self._TRIGGER_TEMPERATURE_NO_HOLD))
+            time.sleep(self._TEMPERATURE_WAIT_TIME)
+            data = self.i2c.read(3)
+            if self._calculate_checksum(data, 2) == ord(data[2]):
+                return str(round(self._get_temperature_from_buffer(data),1))
+        except:
+            return "N/A"
 
     def read_humidity(self):
-        """Reads the humidity from the sensor.  Not that this call blocks
-        for ~30ms to allow the sensor to return the data"""
-        self.i2c.write(chr(self._TRIGGER_HUMIDITY_NO_HOLD))
-        time.sleep(self._HUMIDITY_WAIT_TIME)
-        data = self.i2c.read(3)
-        if self._calculate_checksum(data, 2) == ord(data[2]):
-            return self._get_humidity_from_buffer(data)
+        try:
+            """Reads the humidity from the sensor.  Not that this call blocks
+            for ~30ms to allow the sensor to return the data"""
+            self.i2c.write(chr(self._TRIGGER_HUMIDITY_NO_HOLD))
+            time.sleep(self._HUMIDITY_WAIT_TIME)
+            data = self.i2c.read(3)
+            if self._calculate_checksum(data, 2) == ord(data[2]):
+                return str(round(self._get_humidity_from_buffer(data),1))
+        except:
+            return "N/A"
+
+
 
     def close(self):
         """Closes the i2c connection"""
@@ -115,8 +123,11 @@ class SHT21:
 if __name__ == "__main__":
     try:
         with SHT21(1) as sht21:
-            print "Temperature: %s" % sht21.read_temperature()
-            print "Humidity: %s" % sht21.read_humidity()
+            temp =  sht21.read_temperature()
+            hum = sht21.read_humidity()
+            print type(temp), type(hum)
+            print "Temperature: %s" % temp
+            print "Humidity: %s" % hum
     except IOError, e:
         print e
         print "Error creating connection to i2c.  This must be run as root"

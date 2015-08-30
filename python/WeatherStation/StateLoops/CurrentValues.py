@@ -15,7 +15,7 @@ class CurrentValues(StateLoopBase):
         self.fridgeFreezerTrend.color=(0,255,0)
         self.fridgeFreezerTrend.iconFg= pygame.image.load("icons/Frame_Down.png")
         self.fridgeFreezerTrend.text= "KylFrys"
-        self.trendLable =  self.myNormalFont.render("Trender:", 1, config["Colors"]["Lables"])
+        self.trendLable =  self.myNormalFont.render("Visa trender:", 1, config["Colors"]["Lables"])
         self.outdoortemplable = self.myNormalFont.render("Ute:", 1, config["Colors"]["Lables"])
         self.indoortemplable = self.myNormalFont.render("Inne:", 1, config["Colors"]["Lables"])
         self.fridgetemplable = self.myNormalFont.render("Kylen:", 1, config["Colors"]["Lables"])
@@ -37,9 +37,9 @@ class CurrentValues(StateLoopBase):
 
         #Draw CurrentValues screen
         self.fridgetempvalues = self.myNormalFont.render(str(sensors.sensorvaluesdict["FridgeTempUpper"]["Current"]) + " C " + str(sensors.sensorvaluesdict["FridgeTempLower"]["Current"]) + " C", 1, config["Colors"]["Values"])
-        self.indoortempvalues = self.myNormalFont.render(str(sensors.sensorvaluesdict["IndoorTemp"]["Current"]) + "C " + str(sensors.sensorvaluesdict["IndoorHum"]["Current"]) + " %", 1, config["Colors"]["Values"])
-        self.outdoortempvalues = self.myNormalFont.render(str(sensors.sensorvaluesdict["OutdoorTemp"]["Current"]) + "C " + str(sensors.sensorvaluesdict["OutdoorHum"]["Current"]) + " % " +
-                                                          str(sensors.sensorvaluesdict["OutdoorBar"]["Current"]) + " Pa", 1, config["Colors"]["Values"])
+        self.indoortempvalues = self.myNormalFont.render(str(sensors.sensorvaluesdict["IndoorTemp"]["Current"]) + " C " + str(sensors.sensorvaluesdict["IndoorHum"]["Current"]) + " %", 1, config["Colors"]["Values"])
+        self.outdoortempvalues = self.myNormalFont.render(str(sensors.sensorvaluesdict["OutdoorTemp"]["Current"]) + " C " + str(sensors.sensorvaluesdict["OutdoorHum"]["Current"]) + " % " +
+                                                          str(sensors.sensorvaluesdict["OutdoorBar"]["Current"]) + " kPa", 1, config["Colors"]["Values"])
 
         self.freezertempvalues = self.myNormalFont.render(str(sensors.sensorvaluesdict["FreezerTemp"]["Current"]) + " C ", 1, config["Colors"]["Values"])
         pygame.draw.rect(screen,(255,0,0),pygame.Rect(0, 0, 320, 240),5 )

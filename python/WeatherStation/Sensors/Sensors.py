@@ -8,6 +8,7 @@ if  os.sys.platform != 'win32':
     import DS18B20
     import DHT
     import BMP
+    import SHT
 else:
     import random
 
@@ -15,14 +16,14 @@ class Sensors(object):
     def __init__(self):
         #init the needed sensors, one sensor can have many values
         if  os.sys.platform != 'win32':
-            self._fridgeSensorUpper = DS18B20.DS18B20("28-03146af27cff")
+            self._fridgeSensorUpper = DS18B20.DS18B20("28-031515b906ff")
             self._fridgeSensorLower = DS18B20.DS18B20("28-031515ac6eff")
-            self._freezerSensor  = DS18B20.DS18B20("28-021550136cff")
+            self._freezerSensor  =    DS18B20.DS18B20("28-021550136cff")
 
             #TODO: check settings and calibration
             self._indoor = DHT.DHT('11',17)
-            self._outdoor = DHT.DHT('22',27)
             self._outdoorBar = BMP.BMP()
+            self._outdoorHum = SHT.SHT21(1)
 
         import copy
         self.sensorvaluesdict={}
@@ -44,17 +45,15 @@ class Sensors(object):
     def _updateValues(self):
         print "Updating sensor values start: " + str(time.time())
         if  os.sys.platform != 'win32':
-            #Read values from sensor with more then one returnvalue
-            indoor= self._indoor.read()
-            outdoor = self._outdoor.read()
-            self.sensorvaluesdict["FridgeTempUpper"]["Current"] = self._fridgeSensorUpper.read_temp()[0]
-            self.sensorvaluesdict["FridgeTempLower"]["Current"] = self._fridgeSensorLower.read_temp()[0]
-            self.sensorvaluesdict["FreezerTemp"]["Current"] = self._freezerSensor.read_temp()[0]
+            indoor = self._indoor.read()
+            self.sensorvaluesdict["FridgeTempUpper"]["Current"] = self._fridgeSensorUpper.read_temp()
+            self.sensorvaluesdict["FridgeTempLower"]["Current"] = self._fridgeSensorLower.read_temp()
+            self.sensorvaluesdict["FreezerTemp"]["Current"] = self._freezerSensor.read_temp()
             self.sensorvaluesdict["OutdoorBar"]["Current"] = self._outdoorBar.readPressure()
             self.sensorvaluesdict["IndoorHum"]["Current"] = indoor[0]
             self.sensorvaluesdict["IndoorTemp"]["Current"] = indoor[1]
-            self.sensorvaluesdict["OutdoorHum"]["Current"] = outdoor[0]
-            self.sensorvaluesdict["OutdoorTemp"]["Current"] = self._outdoorBar.readTemperature()
+            self.sensorvaluesdict["OutdoorHum"]["Current"] = self._outdoorHum.read_humidity()
+            self.sensorvaluesdict["OutdoorTemp"]["Current"] = self._outdoorHum.read_temperature()
 
            # self.sensorvaluesdict["FridgeTempUpper"]["TrendList"] = self._updateValuesList(self.sensorvaluesdict["FridgeTempUpper"]["Current"], self.sensorvaluesdict["FridgeTempUpper"]["TrendList"] )
         else:
@@ -68,7 +67,7 @@ class Sensors(object):
             self.sensorvaluesdict["OutdoorBar"]["Current"] = random.uniform(900,1020)
             #TODO: Handle exception when value is not a float (missing value/broken sensor/out of range etc)
         for key in self.sensorvaluesdict:
-            self.sensorvaluesdict[key]["Current"] = round(self.sensorvaluesdict[key]["Current"],1)
+            #self.sensorvaluesdict[key]["Current"] = round(self.sensorvaluesdict[key]["Current"],1)
             self.sensorvaluesdict[key]["TrendList"] = self._updateValuesList(self.sensorvaluesdict[key]["Current"], self.sensorvaluesdict[key]["TrendList"] )
         #self.sensorvaluesdict["IndoorHum"]["TrendList"] = self._updateValuesList(self.sensorvaluesdict["IndoorHum"]["Current"], self.sensorvaluesdict["IndoorHum"]["TrendList"] )
         print "Updating sensor values finished: " + str(time.time())
@@ -81,3 +80,10 @@ class Sensors(object):
             valuelist.pop(0)
         return valuelist
 
+    def urlString(self):
+        url = "?time=" + time.strftime("%Y-%m-%d %H:%M:%S") + "&"
+        for key in self.sensorvaluesdict:
+            value = self.sensorvaluesdict[key]["Current"]
+            if value != "N/A":
+                url = url + key + "=" + value + "&"
+        return url[:-1]

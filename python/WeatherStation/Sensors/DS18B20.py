@@ -19,24 +19,34 @@ class DS18B20(object):
         return lines
     
     def read_temp(self):
-        lines = self.temp_raw()
-        while lines[0].strip()[-3:] != 'YES':
-            time.sleep(0.2)
+        try:
             lines = self.temp_raw()
-            
-        temp_output = lines[1].find('t=')
-        
-        if temp_output != -1:
-            temp_string = lines[1].strip()[temp_output+2:]
-            temp_c = float(temp_string) / 1000.0
-            temp_f = temp_c * 9.0 / 5.0 + 32.0
-            return float(temp_c), float(temp_f)
+            while lines[0].strip()[-3:] != 'YES':
+                time.sleep(0.2)
+                lines = self.temp_raw()
+
+            temp_output = lines[1].find('t=')
+
+            if temp_output != -1:
+                temp_string = lines[1].strip()[temp_output+2:]
+                temp_c = float(temp_string) / 1000.0
+                return str(round(temp_c,1))
+        except:
+            return "N/A"
+
 
 
 if __name__ == '__main__':
     print "Testcode for DS18B20"
-    serial = "28-03146af27cff"
-    print "Serial: " + serial
+    serial = "28-031515b906ff"
+    serial2= "28-031515ac6eff"
+    print "Serials: " + serial + " " + serial2
     ts=DS18B20(serial)
+    ts2 = DS18B20(serial2)
     print(ts.read_temp())
+    print (ts2.read_temp())
     print(ts.temp_raw())
+    print(ts2.temp_raw())
+
+
+

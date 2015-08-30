@@ -10,10 +10,18 @@ class BMP(object):
 
 
     def readPressure(self):
-        return float('{0:0.2f}'.format(self._sensor.read_pressure()/100.0))
+        try:
+            pre = float('{0:0.2f}'.format(self._sensor.read_pressure()/1000.0))
+            return str(round(pre,1))
+        except:
+            return "N/A"
 
     def readTemperature(self):
-        return float('{0:0.2f}'.format(self._sensor.read_temperature()))
+        try:
+            temp = float('{0:0.2f}'.format(self._sensor.read_temperature()))
+            return str(round(temp,1))
+        except:
+            return "N/A"
 
 
 if __name__ == '__main__':

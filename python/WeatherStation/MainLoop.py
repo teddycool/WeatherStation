@@ -36,6 +36,7 @@ class MainLoop(object):
 
     def update(self,screen, pos):
         if time.time() - self._lastSensorUpdate > config["UpdateInterval"]["Sensors"]:
+
             self._sensors.update()
             self._lastSensorUpdate = time.time()
         if time.time() - self._lastServerPush > config["UpdateInterval"]["Server"]:
