@@ -55,3 +55,6 @@ docs/_build/
 
 # PyBuilder
 target/
+/backend/www/nbproject/private/
+/backend/www/config.php
+python/WeatherStation/.idea/workspace.xml
