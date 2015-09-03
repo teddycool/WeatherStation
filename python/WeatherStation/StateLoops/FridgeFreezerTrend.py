@@ -3,6 +3,7 @@ from StateLoopBase import StateLoopBase
 import pygame
 from GuiComponents import Button
 from WeatherStationConfig import config
+import time
 
 class FridgeFreezerTrend(StateLoopBase):
     def __init__(self):
@@ -20,9 +21,12 @@ class FridgeFreezerTrend(StateLoopBase):
         self.freezertemplable = self.myMediumFont.render("Frysen:", 1, config["Colors"]["Lables"])
         self._fridgeTrendUplist = self.prepareTrendList(sensors.sensorvaluesdict["FridgeTempUpper"]["TrendList"])
         self._fridgeTrendDownlist = self.prepareTrendList(sensors.sensorvaluesdict["FridgeTempLower"]["TrendList"])
+        self._last_active = time.time()
 
 
     def update(self,mousepressedpos):
+        if time.time()-self._last_active > config["UpdateInterval"]["Saver"]:
+            return "SaverScreen"
         if self.currentValues.selected(mousepressedpos):
             return "CurrentValues"
         else:

@@ -17,7 +17,7 @@ class Main(object):
             os.putenv('SDL_MOUSEDEV'   , '/dev/input/touchscreen')
         print "Init pygame..."
         pygame.init()
-        pygame.mouse.set_visible(True)
+        pygame.mouse.set_visible(False)
         print "Init Main object..."
         self._mainLoop=MainLoop.MainLoop()
         print "Setup screen"
@@ -39,7 +39,7 @@ class Main(object):
                     sys.exit()
                 if(event.type is MOUSEBUTTONDOWN):
                     pos = pygame.mouse.get_pos()
-
+            #TODO: handle backlight and screen timeout
             self._mainLoop.update(self.screen, pos)
             self._mainLoop.draw(self.screen)
             pygame.display.flip()

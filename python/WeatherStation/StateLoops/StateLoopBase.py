@@ -1,22 +1,26 @@
 __author__ = 'teddycool'
 import pygame
 from WeatherStationConfig import config
+import time
 
 class StateLoopBase(object):
     def __init__(self):
         #same font everywhere
+        self.myLargeFont = pygame.font.SysFont("Comic", 100)
         self.myNormalFont = pygame.font.SysFont("Comic", 25)
         self.myMediumFont = pygame.font.SysFont("Comic", 15)
         self.mySmallFont = pygame.font.SysFont("Comic", 10)
         self.myButtonFont = pygame.font.SysFont("Comic", 10)
         self.stateButtons = []
+        self._last_active = time.time()
 
     def initialize(self):
         return
 
     def update(self, mousepressedpos):
         #update states, return new state if changed
-        return
+
+         return
 
     def draw(self, screen, sensors):
         testlable = self.myNormalFont.render("Inne:", 1, (0,255,0))

@@ -2,21 +2,25 @@ __author__ = 'teddycool'
 import urllib2
 import os
 from WeatherStationConfig import config
+import time
 
 
 class Server(object):
     def __init__(self):
-        return
+        self._urlcache=[]
 
     def push(self, sensors):
-        print "Pushing values to server"
+        print "Pushing sensorvalues to server"
         fullurl = config['Server']['url'] + sensors.urlString()
         fullurl=fullurl.replace(' ','%20')
         print fullurl
         if  os.sys.platform != 'win32':
+            self._urlcache.append(fullurl)
             try:
-                #TODO: Handle users and som basic security
-                urllib2.urlopen(fullurl)
+                for url in self._urlcache:
+                    urllib2.urlopen(url)
+                    time.sleep(0.1)
+                self._urlcache = []
             except:
                 #TODO: handle buffering of calls and cache if they not succed
                 pass

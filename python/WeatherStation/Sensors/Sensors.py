@@ -2,6 +2,7 @@ __author__ = 'teddycool'
 import os
 from WeatherStationConfig import config
 import time
+import pickle
 #Simple sensor-mock for easier development when running on PC
 #Import neededsensor-classes
 if  os.sys.platform != 'win32':
@@ -25,13 +26,17 @@ class Sensors(object):
             self._outdoorBar = BMP.BMP()
             self._outdoorHum = SHT.SHT21(1)
 
-        import copy
-        self.sensorvaluesdict={}
-        valuesdict = {"Current": 0, "TrendList": []}
-        measurements = ["IndoorTemp","OutdoorTemp", "IndoorHum", "OutdoorHum", "OutdoorBar","FridgeTempUpper", "FridgeTempLower", "FreezerTemp"]
-        for meassure in measurements:
-            self.sensorvaluesdict[meassure]= copy.deepcopy(valuesdict)
-        return
+        try:
+           self.sensorvaluesdict = pickle.load(open('valuesdict.pickle','rb'))
+           print "Loaded values dictionary...."
+        except:
+            import copy
+            self.sensorvaluesdict={}
+            valuesdict = {"Current": 0, "TrendList": []}
+            measurements = ["IndoorTemp","OutdoorTemp", "IndoorHum", "OutdoorHum", "OutdoorBar","FridgeTempUpper", "FridgeTempLower", "FreezerTemp"]
+            for meassure in measurements:
+                self.sensorvaluesdict[meassure]= copy.deepcopy(valuesdict)
+            print "Created values dictionary..."
 
     def initialize(self):
         #connect each variable to the sensor and value
@@ -40,7 +45,6 @@ class Sensors(object):
 
     def update(self):
          self._updateValues()
-         return
 
     def _updateValues(self):
         print "Updating sensor values start: " + str(time.time())
@@ -67,6 +71,8 @@ class Sensors(object):
             self.sensorvaluesdict["OutdoorBar"]["Current"] = str(round(random.uniform(90,102),1))
         for key in self.sensorvaluesdict:
             self.sensorvaluesdict[key]["TrendList"] = self._updateValuesList(self.sensorvaluesdict[key]["Current"], self.sensorvaluesdict[key]["TrendList"] )
+        pickle.dump(self.sensorvaluesdict,open('valuesdict.pickle','wb'))
+        print "Dumping current valuesdict to disk"
         print "Updating sensor values finished: " + str(time.time())
 
     def _updateValuesList(self,value, valuelist):
@@ -74,8 +80,9 @@ class Sensors(object):
         if value != "N/A":
             valuelist.append(float(value))
             if (len(valuelist)> config["MaxSavedValues"]):
-                valuelist.pop(0)
-            return valuelist
+                poped = valuelist.pop(0)
+                print "Value poped from valuelist: " + str(poped)
+        return valuelist
 
     def urlString(self):
         url = "?time=" + time.strftime("%Y-%m-%d %H:%M:%S") + "&"
@@ -83,4 +90,4 @@ class Sensors(object):
             value = self.sensorvaluesdict[key]["Current"]
             if value != "N/A":
                 url = url + key + "=" + value + "&"
-        return url[:-1]
+        return url[:-1] #remove last '&'

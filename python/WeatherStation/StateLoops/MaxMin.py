@@ -14,7 +14,7 @@ class MaxMin(StateLoopBase):
         self.exitbutton = Button.Button((20,210,50, 10))
         self.exitbutton.color=(0,255,0)
         self.exitbutton.iconFg= pygame.image.load("icons/Frame_Down.png")
-        self.exitbutton.text= config["Texts"]["cancel"]
+        self.exitbutton.text= "->Tillbaka"
         self.outdoortemplable = self.myNormalFont.render("Ute:", 1, (255,255,255))
         self.indoortemplable = self.myNormalFont.render("Inne:", 1, (255,255,255))
 

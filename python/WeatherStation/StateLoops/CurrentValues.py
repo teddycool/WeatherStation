@@ -3,6 +3,7 @@ import pygame
 from StateLoopBase import StateLoopBase
 from GuiComponents import Button
 from WeatherStationConfig import config
+import time
 
 class CurrentValues(StateLoopBase):
     def __init__(self):
@@ -25,9 +26,13 @@ class CurrentValues(StateLoopBase):
         self.outdoortempvalues= self.myNormalFont.render(" -- ", 1, config["Colors"]["Values"])
         self.fridgetempvalues = self.myNormalFont.render(" -- ", 1, config["Colors"]["Values"])
         self.freezertempvalues = self.myNormalFont.render(" -- ", 1, config["Colors"]["Values"])
+        self._last_active = time.time()
+
         return
 
     def update(self, mousepressedpos):
+        if time.time()-self._last_active > config["UpdateInterval"]["Saver"]:
+            return "SaverScreen"
         if self.fridgeFreezerTrend.selected(mousepressedpos):
             return "FridgeFreezerTrend"
         else:
