@@ -12,10 +12,14 @@ class CurrentValues(StateLoopBase):
 
     def initialize(self, sensors):
         #Init buttons etc for MainLoop
-        self.fridgeFreezerTrend = Button.Button((20,210,50, 10))
-        self.fridgeFreezerTrend.color=(0,255,0)
-        self.fridgeFreezerTrend.iconFg= pygame.image.load("icons/Frame_Down.png")
-        self.fridgeFreezerTrend.text= "KylFrys"
+        self.fridgeFreezerTrendBtn = Button.Button((20,210,50, 10))
+        self.fridgeFreezerTrendBtn.color=(0,255,0)
+        self.fridgeFreezerTrendBtn.iconFg= pygame.image.load("icons/Frame_Down.png")
+        self.fridgeFreezerTrendBtn.text= "KylFrys"
+        self.outdoorTrendBtn = Button.Button((100,210,50, 10))
+        self.outdoorTrendBtn.color=(0,255,0)
+        self.outdoorTrendBtn.iconFg= pygame.image.load("icons/Frame_Down.png")
+        self.outdoorTrendBtn.text= "Ute"
         self.trendLable =  self.myNormalFont.render("Visa trender:", 1, config["Colors"]["Lables"])
         self.outdoortemplable = self.myNormalFont.render("Ute:", 1, config["Colors"]["Lables"])
         self.indoortemplable = self.myNormalFont.render("Inne:", 1, config["Colors"]["Lables"])
@@ -27,14 +31,15 @@ class CurrentValues(StateLoopBase):
         self.fridgetempvalues = self.myNormalFont.render(" -- ", 1, config["Colors"]["Values"])
         self.freezertempvalues = self.myNormalFont.render(" -- ", 1, config["Colors"]["Values"])
         self._last_active = time.time()
-
         return
 
     def update(self, mousepressedpos):
         if time.time()-self._last_active > config["UpdateInterval"]["Saver"]:
             return "SaverScreen"
-        if self.fridgeFreezerTrend.selected(mousepressedpos):
+        if self.fridgeFreezerTrendBtn.selected(mousepressedpos):
             return "FridgeFreezerTrend"
+        if self.outdoorTrendBtn.selected(mousepressedpos):
+            return "OutdoorTrend"
         else:
             return None
 
@@ -47,8 +52,8 @@ class CurrentValues(StateLoopBase):
                                                           str(sensors.sensorvaluesdict["OutdoorBar"]["Current"]) + " kPa", 1, config["Colors"]["Values"])
 
         self.freezertempvalues = self.myNormalFont.render(str(sensors.sensorvaluesdict["FreezerTemp"]["Current"]) + " C ", 1, config["Colors"]["Values"])
-        pygame.draw.rect(screen,(255,0,0),pygame.Rect(0, 0, 320, 240),5 )
-        screen.blit(self.trendLable, (10,180))
+        #pygame.draw.rect(screen,(255,0,0),pygame.Rect(0, 0, 320, 240),5 )
+        screen.blit(self.trendLable, (10,170))
         screen.blit(self.outdoortemplable, (10,40))
         screen.blit(self.outdoortempvalues,(100,40))
         screen.blit(self.indoortemplable, (10, 75))
@@ -57,6 +62,7 @@ class CurrentValues(StateLoopBase):
         screen.blit(self.fridgetempvalues,(100,110))
         screen.blit(self.freezertemplable, (10,145))
         screen.blit(self.freezertempvalues,(100,145))
-        self.fridgeFreezerTrend.draw(screen)
+        self.fridgeFreezerTrendBtn.draw(screen)
+        self.outdoorTrendBtn.draw((screen))
 
         return screen

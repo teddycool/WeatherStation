@@ -1,6 +1,5 @@
 __author__ = 'teddycool'
 #Config values for WeatherStation.
-#TODO: different config for raspi and desktop
 
 config = {'UpdateInterval': {'Sensors': 60, 'Server': 600, 'Screen': 0, "Saver": 10}, #times in seconds
           'MaxSavedValues': 1440,

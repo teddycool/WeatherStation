@@ -6,7 +6,7 @@ import sys
 from StateLoops import CurrentValues
 from Sensors import Sensors
 from StateLoops import MaxMin
-from StateLoops import IndoorOutdoorTrend
+from StateLoops import OutdoorTrend
 from StateLoops import FridgeFreezerTrend
 from StateLoops import SaverScreen
 from WeatherStationConfig import config
@@ -18,10 +18,10 @@ class MainLoop(object):
         self._server= Server.Server()
         self._currentState = CurrentValues.CurrentValues()
         self._maxMin = MaxMin.MaxMin()
-        self._indoorOutdoorTrend = IndoorOutdoorTrend.IndoorOutdoorTrend()
+        self._outdoorTrend = OutdoorTrend.OutdoorTrend()
         self._fridgeFreezerTrend = FridgeFreezerTrend.FridgeFreezerTrend()
         self._saverScreen = SaverScreen.SaverScreen()
-        self._state = {"CurrentValues": self._currentState, "MaxMin": self._maxMin, "IndoorOutdoorTrend":self._indoorOutdoorTrend, "FridgeFreezerTrend":self._fridgeFreezerTrend, "SaverScreen":self._saverScreen}
+        self._state = {"CurrentValues": self._currentState, "MaxMin": self._maxMin, "OutdoorTrend":self._outdoorTrend, "FridgeFreezerTrend":self._fridgeFreezerTrend, "SaverScreen":self._saverScreen}
         self._currentState = self._state["SaverScreen"]
         self._lastSensorUpdate = 0
         self._lastServerPush = 0

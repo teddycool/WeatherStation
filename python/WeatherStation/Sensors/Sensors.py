@@ -12,6 +12,7 @@ if  os.sys.platform != 'win32':
     import SHT
 else:
     import random
+import sys
 
 class Sensors(object):
     def __init__(self):
@@ -30,6 +31,9 @@ class Sensors(object):
            self.sensorvaluesdict = pickle.load(open('valuesdict.pickle','rb'))
            print "Loaded values dictionary...."
         except:
+            #Print to log...
+            #e = sys.exc_info()[0]
+            #print str(e)
             import copy
             self.sensorvaluesdict={}
             valuesdict = {"Current": 0, "TrendList": []}

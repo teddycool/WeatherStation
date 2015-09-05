@@ -10,8 +10,6 @@ class SaverScreen(StateLoopBase):
         return
 
     def initialize(self, sensors):
-
-
         return
 
 
