@@ -1,4 +1,4 @@
-__author__ = 'psk'
+__author__ = 'teddycool'
 #https://github.com/jaques/sht21_python/blob/master/sht21.py
 #!/usr/bin/python
 import fcntl

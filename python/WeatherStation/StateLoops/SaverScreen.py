@@ -1,4 +1,4 @@
-__author__ = 'psk'
+__author__ = 'teddycool'
 from StateLoopBase import StateLoopBase
 from GuiComponents import Button
 from WeatherStationConfig import config

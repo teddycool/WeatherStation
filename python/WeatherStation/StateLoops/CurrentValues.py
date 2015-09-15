@@ -50,18 +50,17 @@ class CurrentValues(StateLoopBase):
         self.indoortempvalues = self.myNormalFont.render(str(sensors.sensorvaluesdict["IndoorTemp"]["Current"]) + " C " + str(sensors.sensorvaluesdict["IndoorHum"]["Current"]) + " %", 1, config["Colors"]["Values"])
         self.outdoortempvalues = self.myNormalFont.render(str(sensors.sensorvaluesdict["OutdoorTemp"]["Current"]) + " C " + str(sensors.sensorvaluesdict["OutdoorHum"]["Current"]) + " % " +
                                                           str(sensors.sensorvaluesdict["OutdoorBar"]["Current"]) + " kPa", 1, config["Colors"]["Values"])
-
         self.freezertempvalues = self.myNormalFont.render(str(sensors.sensorvaluesdict["FreezerTemp"]["Current"]) + " C ", 1, config["Colors"]["Values"])
-        #pygame.draw.rect(screen,(255,0,0),pygame.Rect(0, 0, 320, 240),5 )
+
+        screen.blit(self.outdoortemplable, (10,20))
+        screen.blit(self.outdoortempvalues,(100,20))
+        screen.blit(self.indoortemplable, (10, 55))
+        screen.blit(self.indoortempvalues,(100,55))
+        screen.blit(self.fridgetemplable, (10,100))
+        screen.blit(self.fridgetempvalues,(100,100))
+        screen.blit(self.freezertemplable, (10,135))
+        screen.blit(self.freezertempvalues,(100,135))
         screen.blit(self.trendLable, (10,170))
-        screen.blit(self.outdoortemplable, (10,40))
-        screen.blit(self.outdoortempvalues,(100,40))
-        screen.blit(self.indoortemplable, (10, 75))
-        screen.blit(self.indoortempvalues,(100,75))
-        screen.blit(self.fridgetemplable, (10,110))
-        screen.blit(self.fridgetempvalues,(100,110))
-        screen.blit(self.freezertemplable, (10,145))
-        screen.blit(self.freezertempvalues,(100,145))
         self.fridgeFreezerTrendBtn.draw(screen)
         self.outdoorTrendBtn.draw((screen))
 

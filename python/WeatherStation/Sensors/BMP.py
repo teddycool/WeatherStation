@@ -1,4 +1,4 @@
-__author__ = 'psk'
+__author__ = 'teddycool'
 
 import Adafruit_BMP.BMP085 as BMP085
 

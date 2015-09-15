@@ -43,8 +43,6 @@ class Sensors(object):
             print "Created values dictionary..."
 
     def initialize(self):
-        #connect each variable to the sensor and value
-        #self._updateValues()
         return
 
     def update(self):
@@ -53,6 +51,7 @@ class Sensors(object):
     def _updateValues(self):
         print "Updating sensor values start: " + str(time.time())
         if  os.sys.platform != 'win32':
+            #TODO: Check that values are reasonable
             indoor = self._indoor.read()
             self.sensorvaluesdict["FridgeTempUpper"]["Current"] = self._fridgeSensorUpper.read_temp()
             self.sensorvaluesdict["FridgeTempLower"]["Current"] = self._fridgeSensorLower.read_temp()
@@ -62,9 +61,8 @@ class Sensors(object):
             self.sensorvaluesdict["IndoorTemp"]["Current"] = indoor[1]
             self.sensorvaluesdict["OutdoorHum"]["Current"] = self._outdoorHum.read_humidity()
             self.sensorvaluesdict["OutdoorTemp"]["Current"] = self._outdoorHum.read_temperature()
-
-           # self.sensorvaluesdict["FridgeTempUpper"]["TrendList"] = self._updateValuesList(self.sensorvaluesdict["FridgeTempUpper"]["Current"], self.sensorvaluesdict["FridgeTempUpper"]["TrendList"] )
         else:
+            #simple mock for gui development
             self.sensorvaluesdict["FridgeTempUpper"]["Current"] = str(round(random.uniform(5,10),1))
             self.sensorvaluesdict["FridgeTempLower"]["Current"] = str(round(random.uniform(5,10),1))
             self.sensorvaluesdict["FreezerTemp"]["Current"] = str(round(random.uniform(-22,-5),1))

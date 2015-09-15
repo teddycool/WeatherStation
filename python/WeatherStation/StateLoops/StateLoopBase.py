@@ -10,7 +10,7 @@ class StateLoopBase(object):
         self.myNormalFont = pygame.font.SysFont("Comic", 25)
         self.myMediumFont = pygame.font.SysFont("Comic", 15)
         self.mySmallFont = pygame.font.SysFont("Comic", 10)
-        self.myScaleFont = pygame.font.SysFont("Comic", 12)
+        self.myScaleFont = pygame.font.SysFont("Comic", 15)
         self.myButtonFont = pygame.font.SysFont("Comic", 10)
         self.stateButtons = []
         self._last_active = time.time()
@@ -38,12 +38,10 @@ class StateLoopBase(object):
         return
 
     def createTrendList(self, valuelist):
-        #TODO: calculate interval for picking values from list. List is last 24h X-stepping is 2 and there is place for 150 values with standardsetting every 10th
          if len(valuelist) < 5:
             return []
          newlist = []
-        #Space for 150 values.
-         print len(valuelist)
+        #Space on screen for last 150 values...
          if len(valuelist) > 150:
             newlist = list(valuelist[-150:])
          else:
@@ -57,6 +55,9 @@ class StateLoopBase(object):
 
         maxvalue = max(trendlist)
         minvalue = min(trendlist)
+        if maxvalue-minvalue == 0:
+            maxvalue = round(1.1*maxvalue, 1)
+            minvalue = round(0.9*minvalue, 1)
         ystep = (ymax-ymin)/abs(maxvalue-minvalue)
         maxstr =  self.myScaleFont.render(str(maxvalue), 1, config["Colors"]["Lables"])
         minstr =  self.myScaleFont.render(str(minvalue), 1, config["Colors"]["Lables"])
@@ -70,5 +71,5 @@ class StateLoopBase(object):
             if(prevalue != None and thisvalue != None):
                 pygame.draw.line(screen, color, (linex,ymax-(prevalue-minvalue)*ystep), (linex-2,ymax-(thisvalue-minvalue)*ystep), 1)
                 linex=linex-2
-        screen.blit(maxstr, (300,ymin-10))
-        screen.blit(minstr, (300,ymax-10))
+        screen.blit(maxstr, (290,ymin-10))
+        screen.blit(minstr, (290,ymax-10))

@@ -46,7 +46,6 @@ class Main(object):
             #TODO: set framerate based on time for each frame
             while time.time() - self._lastScreenUpdate < config["UpdateInterval"]["Screen"]:
                 time.sleep(0.01)
-            #print "Framerate = " + str(1/(time.time() - self._lastScreenUpdate))
             self._lastScreenUpdate = time.time()
 
 
