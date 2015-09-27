@@ -10,6 +10,7 @@ $html = <<<EOD
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        
         <meta charset="iso-8859-1" />
         <title></title>
     </head>
@@ -44,11 +45,11 @@ while($row1 = $res->fetch_object()) {
     
     
 }
-$html .= "<h2>Senaste mätningen:</h2>";
+$html .= "<h2>Senaste m&aumltningen:</h2>";
 $html .= "<br/>Tid:   {$time}<br/><br/>";
 $html .= "Kylen: {$fridgetemplow}C, {$fridgetemphigh}C<br/>";
 $html .= "Frysen: {$freezertemp}C<br/><br/>";
 $html .= "Ute:  {$outdoortemp}C, {$outdoorhum}% {$outdoorbar}kPa<br/>";
 $html .= "Inne: {$indoortemp}C, {$indoorhum}%";
 
-print $html;
+print $html."</html>";

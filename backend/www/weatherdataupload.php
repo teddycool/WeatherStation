@@ -42,9 +42,6 @@ EOD;
 $res = $mysqli->query($query)
                         or die("Could not query database = \n {$query}");
                 
-echo '{$res}';
-echo 'OK!';
-print ("End of file...")
 ?>
 
 
