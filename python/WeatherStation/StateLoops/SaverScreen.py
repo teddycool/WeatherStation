@@ -10,10 +10,14 @@ class SaverScreen(StateLoopBase):
         return
 
     def initialize(self, sensors):
+        self._last_active = time.time()
         return
 
 
     def update(self, mousepressedpos):
+        #TODO: add range sensor for turning off and on screen...
+       # if time.time()-self._last_active > config["UpdateInterval"]["Range"]:
+            #Turn off screen
         if mousepressedpos != (0,0):
             return "CurrentValues"
 

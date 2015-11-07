@@ -12,8 +12,13 @@ from StateLoops import SaverScreen
 from WeatherStationConfig import config
 from Server import Server
 
+
 class MainLoop(object):
     def __init__(self):
+        #TODO: fix dynamic backlight depending on screentype and (later) lightsensor
+        #self._lightcontrolPwm = pwm
+        #self._lightcontrolPwm.ChangeDutyCycle(10) #Setting backlight to 20%
+        #print "setting pwm dutycycle to 10%"
         self._sensors=Sensors.Sensors()
         self._server= Server.Server()
         self._currentState = CurrentValues.CurrentValues()
@@ -37,8 +42,8 @@ class MainLoop(object):
         print "Station started at ", self.time
 
     def update(self,screen, pos):
+        #TODO: Add range check
         if time.time() - self._lastSensorUpdate > config["UpdateInterval"]["Sensors"]:
-
             self._sensors.update()
             self._lastSensorUpdate = time.time()
         if time.time() - self._lastServerPush > config["UpdateInterval"]["Server"]:
