@@ -1,5 +1,5 @@
 __author__ = 'teddycool'
-
+#PREREQ: https://learn.adafruit.com/using-the-bmp085-with-raspberry-pi/using-the-adafruit-bmp-python-library
 import Adafruit_BMP.BMP085 as BMP085
 
 

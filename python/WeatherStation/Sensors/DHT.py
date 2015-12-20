@@ -1,5 +1,6 @@
 __author__ = 'teddycool'
-#https://learn.adafruit.com/downloads/pdf/dht-humidity-sensing-on-raspberry-pi-with-gdocs-logging.pdf
+#PREREQ: https://learn.adafruit.com/downloads/pdf/dht-humidity-sensing-on-raspberry-pi-with-gdocs-logging.pdf
+
 import os
 import time
 import Adafruit_DHT
@@ -29,6 +30,6 @@ class DHT(object):
 if __name__ == '__main__':
     print "Testcode for DHT humidity and temp sensors"
     dht11=DHT('11',17)
-    print "DHT11-> " + dht11.read()
+    print "DHT11-> " + str(dht11.read())
     dht22=DHT('22',27)
-    print "DHT22-> " + dht22.read()
+    print "DHT22-> " + str(dht22.read())
