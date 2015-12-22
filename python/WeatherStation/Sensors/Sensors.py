@@ -23,7 +23,7 @@ class Sensors(object):
             self._freezerSensor  =    DS18B20.DS18B20("28-021550136cff")
 
             #TODO: check settings and calibration
-            self._indoor = DHT.DHT('11',17)
+            self._indoor = DHT.DHT('11',21)
             self._outdoorBar = BMP.BMP()
             self._outdoorHum = SHT.SHT21(1)
 
@@ -93,3 +93,10 @@ class Sensors(object):
             if value != "N/A":
                 url = url + key + "=" + value + "&"
         return url[:-1] #remove last '&'
+
+    def toString(self):
+        str = ""
+        for key in self.sensorvaluesdict:
+            value = self.sensorvaluesdict[key]["Current"]
+            str = str + key + "=" + value + ", "
+        return str[:-2]

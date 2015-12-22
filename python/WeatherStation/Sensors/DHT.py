@@ -30,6 +30,6 @@ class DHT(object):
 if __name__ == '__main__':
     print "Testcode for DHT humidity and temp sensors"
     dht11=DHT('11',17)
-    print "DHT11-> " + str(dht11.read())
-    dht22=DHT('22',27)
-    print "DHT22-> " + str(dht22.read())
+    while True:
+        print "DHT11-> " + str(dht11.read())
+        time.sleep(1)

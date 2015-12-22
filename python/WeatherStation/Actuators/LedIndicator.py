@@ -11,9 +11,11 @@ class LedIndicator(object):
         print "LedIndicator object created for IO: " + str(self._pin)
 
     def activate(self, on=True):
+        if on:
+            print "LedIndicator object activated for IO: " + str(self._pin)
         self._lastActivate = time.time()
         self._gpio.output(self._pin, on)
-        print "LedIndicator object activated for IO: " + str(self._pin)
+
 
     def update(self):
         if time.time() - self._lastActivate > config["LedIndicator"]["ActivationTime"]:
@@ -30,10 +32,12 @@ if __name__ == '__main__':
     GPIO.setmode(GPIO.BCM)
     import time
     led1 = LedIndicator(GPIO, 12)
+    led2 = LedIndicator(GPIO, 16)
 
     led1.activate(True)
-
+    led2.activate(True)
     time.sleep(5)
     led1.activate(False)
-
+    time.sleep(2)
+    led2.activate(False)
     GPIO.cleanup()

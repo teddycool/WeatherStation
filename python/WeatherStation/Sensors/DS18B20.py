@@ -38,15 +38,15 @@ class DS18B20(object):
 
 if __name__ == '__main__':
     print "Testcode for DS18B20"
-    serial = "28-031515b906ff"
-    serial2= "28-031515ac6eff"
-    print "Serials: " + serial + " " + serial2
-    ts=DS18B20(serial)
-    ts2 = DS18B20(serial2)
-    print(ts.read_temp())
-    print (ts2.read_temp())
-    print(ts.temp_raw())
-    print(ts2.temp_raw())
+    serials = ["28-031515b906ff","28-031515ac6eff", "28-021550136cff"]
+    terms = []
+    for serial in serials:
+        print "DS18B20 with serial " + serial + " created"
+        ts = DS18B20(serial)
+        terms.append(ts)
 
+    for ts in terms:
+        print(ts.read_temp())
+        print(ts.temp_raw())
 
 
