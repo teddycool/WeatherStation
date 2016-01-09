@@ -13,7 +13,7 @@ class LedIndicator(object):
     def activate(self, on=True):
         if on:
             print "LedIndicator object activated for IO: " + str(self._pin)
-        self._lastActivate = time.time()
+            self._lastActivate = time.time()
         self._gpio.output(self._pin, on)
 
 

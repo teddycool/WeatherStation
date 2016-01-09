@@ -15,6 +15,9 @@ $servertime = time();  //PHP time...
 $AllData = $_SERVER["QUERY_STRING"];
 
 //weatherdata from query-string
+
+
+$atable             = isset($_GET['table']) ? $_GET['table'] : 'NULL';
 $atimestamp             = isset($_GET['time']) ? $_GET['time'] : 'NULL';
 $afridgetemphigh        = isset($_GET['FridgeTempUpper']) ? $_GET['FridgeTempUpper'] : 'NULL';
 $afridgetemplow         = isset($_GET['FridgeTempLower']) ? $_GET['FridgeTempLower'] : 'NULL';
@@ -24,6 +27,9 @@ $aindoortemp            = isset($_GET['IndoorTemp']) ? $_GET['IndoorTemp'] : 'NU
 $aoutdoorhum            = isset($_GET['OutdoorHum']) ? $_GET['OutdoorHum'] : 'NULL';
 $aindoorhum             = isset($_GET['IndoorHum']) ? $_GET['IndoorHum'] : 'NULL';
 $aoutdoorbar            = isset($_GET['OutdoorBar']) ? $_GET['OutdoorBar'] : 'NULL';
+$airlightlevel          = isset($_GET['IrLight']) ? $_GET['IrLight'] : 'NULL';
+$aambilightlevel          = isset($_GET['ALight']) ? $_GET['ALight'] : 'NULL';
+
 
 
 
@@ -33,10 +39,20 @@ if (mysqli_connect_error()) {
    echo "Connect failed: ".mysqli_connect_error()."<br>";
    exit();
 }
+$procedure = '';
+if ($atable=='short'){
+    $procedure = insertWeatherDataSt;
+}
+else {
+    if ($atable=='long'){
+    $procedure = insertWeatherDataLt;
+}
+}
+
 
 
 $query = <<< EOD
-CALL insertWeatherData('{$atimestamp}',{$afridgetemphigh},{$afridgetemplow},{$afreezertemp},{$aoutdoortemp}, {$aindoortemp}, {$aoutdoorhum},{$aindoorhum}, {$aoutdoorbar})
+CALL {$procedure}('{$atimestamp}',{$afridgetemphigh},{$afridgetemplow},{$afreezertemp},{$aoutdoortemp}, {$aindoortemp}, {$aoutdoorhum},{$aindoorhum}, {$aoutdoorbar}, {$airlightlevel}, {$aambilightlevel})
 EOD;
 // Perform the query
 $res = $mysqli->query($query)

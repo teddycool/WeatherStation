@@ -44,7 +44,7 @@ class TSL2561:
                 self.i2c.write8(0x81, 0x12)     # set gain = 16X and timing = 402 mSec
                 if (self.debug):
                     print "Setting high gain"
-            self.gain=gain;                     # safe gain for calculation
+            self.gain=gain                     # safe gain for calculation
             time.sleep(self.pause)              # pause for integration (self.pause must be bigger than integration time)
 
 
@@ -63,11 +63,11 @@ class TSL2561:
 
     def readFull(self, reg=0x8C):
         """Reads visible+IR diode from the I2C device"""
-        return self.readWord(reg);
+        return self.readWord(reg)
 
     def readIR(self, reg=0x8E):
         """Reads IR only diode from the I2C device"""
-        return self.readWord(reg);
+        return self.readWord(reg)
 
     def readLux(self, gain = 0):
         """Grabs a lux reading either with autoranging (gain=0) or with a specified gain (1, 16)"""
@@ -106,13 +106,14 @@ class TSL2561:
         elif (ratio > 1.3):
             lux = 0
 
-        return lux
+        return str(round(lux,1))
 
 if __name__ == "__main__":
     tsl=TSL2561()
     while True:
-        print tsl.readLux()
-        print "LUX HIGH GAIN ", tsl.readLux(16)
-        print "LUX LOW GAIN ", tsl.readLux(1)
+        #print tsl.readLux()
+        #print "LUX HIGH GAIN ", tsl.readLux(16)
+        #print "LUX LOW GAIN ", tsl.readLux(1)
         print "LUX AUTO GAIN ", tsl.readLux()
+        print "IR ", str(tsl.readIR())
         time.sleep(1)

@@ -40,8 +40,7 @@ while($row1 = $res->fetch_object()) {
     $outdoorbar    = $row1->outdoorbar;
     $indoortemp    = $row1->indoortemp;
     $indoorhum     = $row1->indoorhum;
-    $time          = $row1->measuretime;
-    
+    $time          = $row1->measuretime;  
     
     
 }

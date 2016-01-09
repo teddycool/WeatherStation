@@ -12,6 +12,7 @@ class PushButton(object):
     def __init__(self, GPIO, inputpin):
         self._gpio = GPIO
         self._inputpin = inputpin
+        self._gpio.setup(self._inputpin,self._gpio.IN)
         self._pressed = False
         self._lastpress = False
         self._states = ["Released","Pressed", "LongPressed"]

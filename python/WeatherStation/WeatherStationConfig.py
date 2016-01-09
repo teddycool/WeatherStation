@@ -7,11 +7,12 @@ __author__ = 'teddycool'
 # When data is sent to the sql-server the insert procedure loads the short-term datatable, removes older stuff and also load the data to the long-term table
 # if the last record is older then server inteval
 
-config = {'UpdateInterval': {'Sensors': 30, 'Server': 3600, }, #times in seconds
+config = {'UpdateInterval': {'Sensors': 10, 'Server': 60, }, #times in seconds
           'MaxSavedValues': 2880,  # for future local trend-calcultations and alarms
-          'Server': {'url': 'http://www.sundback.com/ws/weatherdataupload.php', 'user': 'username', 'password': 'userspassword', 'WSname': 'Name your station', 'WSId': 0},
+          'Server': {'url': 'http://www.sundback.com/ws/weatherdataupload2.php', 'user': 'username', 'password': 'userspassword', 'WSname': 'Name your station', 'WSId': 0},
           #'Logging':{'Log':True, "Logfile":"weatherlog.log", "PushToServer": True},
           'LedIndicator': {"ActivationTime": 2},
-          "Button": {"Pressed": 0.5, "LongPressed": 2},
+          "Button": {"Pressed": 0.5, "LongPressed": 3}, #times in seconds
+          "Alarm": {"Freezer": -10}
             }
 

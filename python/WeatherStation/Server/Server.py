@@ -9,12 +9,11 @@ class Server(object):
     def __init__(self):
         self._urlcache=[]
 
-    def push(self, sensors):
+    def push(self, sensors, table):
         print "Pushing sensorvalues to server"
-        fullurl = config['Server']['url'] + sensors.urlString()
+        fullurl = config['Server']['url'] + sensors.urlString(table)
         fullurl=fullurl.replace(' ','%20')
         print fullurl
-        #print "DEBUG... No sending of data"
         if  os.sys.platform != 'win32':
             self._urlcache.append(fullurl)
             try:

@@ -20,7 +20,6 @@ class Main(object):
         while running:
             try:
                 self._mainLoop.update()
-                time.sleep(1)
             except Exception as e:
                 running = False
                 print str(e)
