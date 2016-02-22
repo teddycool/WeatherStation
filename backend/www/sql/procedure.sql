@@ -1,4 +1,4 @@
-CREATE PROCEDURE `insertWeatherDataLt`
+qCREATE PROCEDURE `insertWeatherDataLt`
 
 ( IN `ameasuretime` DATETIME, IN `afridgetemphigh` FLOAT, IN `afridgetemplow` FLOAT,
 IN `afreezertemp` FLOAT, IN `aoutdoortemp` FLOAT, 

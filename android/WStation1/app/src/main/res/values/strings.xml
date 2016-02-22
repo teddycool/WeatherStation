@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">WStation1</string>
+
+    <string name="dummy_button">Trends</string>
+    <string name="dummy_content">Temperatures\nTesting...Ä</string>
+    <string name="indoortemp">InneTemp</string>
+    <string name="indoortempvalue">22.0 </string>
+</resources>

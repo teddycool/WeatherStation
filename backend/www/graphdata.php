@@ -10,7 +10,7 @@ if (mysqli_connect_error()) {
 $return_arr = array();
 
 $query = <<< EOD
-SELECT * FROM `ws_data` order by measuretime DESC limit 10
+SELECT * FROM `ws_data_shortterm` order by measuretime DESC limit 10
 EOD;
 // Perform the query
 $res = $mysqli->query($query)

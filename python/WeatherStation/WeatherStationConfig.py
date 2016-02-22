@@ -4,10 +4,8 @@ __author__ = 'teddycool'
 #The database depends on two tables: short- and long-term.
 #   Short-term is for the last 24 hours and contiune data for each sensor read as defined below.
 #   Long-term is storing data at the interval for 'server' below
-# When data is sent to the sql-server the insert procedure loads the short-term datatable, removes older stuff and also load the data to the long-term table
-# if the last record is older then server inteval
 
-config = {'UpdateInterval': {'Sensors': 10, 'Server': 60, }, #times in seconds
+config = {'UpdateInterval': {'Sensors': 10, 'Server': 300, }, #times in seconds
           'MaxSavedValues': 2880,  # for future local trend-calcultations and alarms
           'Server': {'url': 'http://www.sundback.com/ws/weatherdataupload2.php', 'user': 'username', 'password': 'userspassword', 'WSname': 'Name your station', 'WSId': 0},
           #'Logging':{'Log':True, "Logfile":"weatherlog.log", "PushToServer": True},

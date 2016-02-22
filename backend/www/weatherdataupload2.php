@@ -31,9 +31,6 @@ $airlightlevel          = isset($_GET['IrLight']) ? $_GET['IrLight'] : 'NULL';
 $aambilightlevel          = isset($_GET['ALight']) ? $_GET['ALight'] : 'NULL';
 
 
-
-
-
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 if (mysqli_connect_error()) {
    echo "Connect failed: ".mysqli_connect_error()."<br>";
@@ -45,9 +42,12 @@ if ($atable=='short'){
 }
 else {
     if ($atable=='long'){
-    $procedure = insertWeatherDataLt;
-}
-}
+        $procedure = insertWeatherDataLt;
+    }
+    else {
+        die("No proper procedure selected");
+    }
+ }
 
 
 
@@ -57,7 +57,6 @@ EOD;
 // Perform the query
 $res = $mysqli->query($query)
                         or die("Could not query database = \n {$query}");
-                
 ?>
 
 

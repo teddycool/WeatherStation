@@ -6,7 +6,7 @@ if (mysqli_connect_error()) {
    exit();
 }
 $query = <<< EOD
-SELECT * FROM `ws_data` order by measuretime DESC limit 1
+SELECT * FROM `ws_data_shortterm` order by measuretime DESC limit 1
 EOD;
 // Perform the query
 $res = $mysqli->query($query)
