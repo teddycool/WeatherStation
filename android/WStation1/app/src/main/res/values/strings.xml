@@ -4,11 +4,13 @@
     <string name="dummy_button">Trends</string>
     <string name="dummy_content">Temperatures\nTesting...Ä</string>
     <string name="indoortemp">InneTemp</string>
-    <string name="indoortempvalue">22.0 </string>
+    <string name="indoortempvalue">22.0 \u00b0 </string>
     <string name="outdoorlable">Ute:</string>
     <string name="indoorlable">Inne:</string>
     <string name="freezerlable">Frys:</string>
-    <string name="freezervalues"> -19</string>
-    <string name="indoorvalues">22 , 50%</string>
+    <string name="freezervalues"> -19\u00b0C</string>
+    <string name="indoorvalues">22\u00b0C 50%</string>
     <string name="fridgelable">Kyl:</string>
+    <string name="fridgevalues">4\u00b0C 6\u00b0C</string>
+    <string name="outdoorvalues">-12\u00b0C 50% \n 950bar</string>
 </resources>
