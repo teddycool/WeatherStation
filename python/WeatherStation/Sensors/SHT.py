@@ -32,10 +32,18 @@ class SHT21:
         loaded).  Note that this has only been tested on first revision
         raspberry pi where the device_number = 0, but it should work
         where device_number=1"""
-        self.i2c = open('/dev/i2c-%s' % device_number, 'r+', 0)
-        fcntl.ioctl(self.i2c, self.I2C_SLAVE, 0x40)
-        self.i2c.write(chr(self._SOFTRESET))
-        time.sleep(0.050)
+        try:
+            self.i2c = open('/dev/i2c-%s' % device_number, 'r+', 0)
+            fcntl.ioctl(self.i2c, self.I2C_SLAVE, 0x40)
+            self.i2c.write(chr(self._SOFTRESET))
+            time.sleep(0.050)
+            self._init = True
+        except IOError, e:
+            self._init=False
+            print "Error creating connection to i2c.  This must be run as root"
+
+        except:
+            self._init=False
 
     def read_temperature(self):
         try:
@@ -65,7 +73,8 @@ class SHT21:
 
     def close(self):
         """Closes the i2c connection"""
-        self.i2c.close()
+        if self._init:
+            self.i2c.close()
 
     def __enter__(self):
         """used to enable python's with statement support"""

@@ -38,18 +38,16 @@ if (mysqli_connect_error()) {
 }
 $procedure = '';
 if ($atable=='short'){
-    $procedure = insertWeatherDataSt;
+    $procedure = insertWeatherDataSt;    
 }
 else {
     if ($atable=='long'){
-        $procedure = insertWeatherDataLt;
+        $procedure = insertWeatherDataLt;  
     }
     else {
         die("No proper procedure selected");
     }
  }
-
-
 
 $query = <<< EOD
 CALL {$procedure}('{$atimestamp}',{$afridgetemphigh},{$afridgetemplow},{$afreezertemp},{$aoutdoortemp}, {$aindoortemp}, {$aoutdoorhum},{$aindoorhum}, {$aoutdoorbar}, {$airlightlevel}, {$aambilightlevel})
@@ -57,6 +55,12 @@ EOD;
 // Perform the query
 $res = $mysqli->query($query)
                         or die("Could not query database = \n {$query}");
+ 
+//Adding data went well, now clean out old stuff from shortterm table. 
+//TODO: Ugly direct call, should be moved to procedure with a variable for the interval                        
+$query = "DELETE FROM ws_data_shortterm WHERE servertime < (NOW() - INTERVAL 24 HOUR)";
+$res = $mysqli->query($query)
+      or die("Could not query database = \n {$query}");                            
 ?>
 
 

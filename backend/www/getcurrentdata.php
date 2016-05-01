@@ -1,4 +1,5 @@
 <?php
+//Retrieve current data and return it as simple xml, to use on website or android app etc
 require_once('config.php');
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 if (mysqli_connect_error()) {
@@ -13,7 +14,7 @@ $res = $mysqli->query($query)
                         or die("Could not query database = \n {$query}");
 
 
-
+//TODO: add ir and alight variables..
 while($row1 = $res->fetch_object()) {
     $fridgetemphigh= $row1->fridgetemphigh;
     $fridgetemplow = $row1->fridgetemplow;
@@ -27,9 +28,9 @@ while($row1 = $res->fetch_object()) {
 }
 $currentdata =<<<EOD
 <?xml version="1.0" encoding="iso-8859-1"?>
-<meassure time = "{$time}" >
+<measures time = "{$time}" >
 EOD;
-
+$currentdata .= "<measure>";
 $currentdata .= "<fridgetemplow> {$fridgetemplow} </fridgetemplow>";
 $currentdata .= "<fridgetemphigh> {$fridgetemphigh} </fridgetemphigh>";
 $currentdata .= "<freezertemp> {$freezertemp} </freezertemp>";
@@ -38,5 +39,6 @@ $currentdata .= "<outdoorhum> {$outdoorhum} </outdoorhum>";
 $currentdata .= "<outdoorbar> {$outdoorbar} </outdoorbar>";
 $currentdata .= "<indoortemp> {$indoortemp} </indoortemp>";
 $currentdata .= "<indoorhum> {$indoorhum} </indoorhum>";
-$currentdata .= "</meassure>";
+$currentdata .= "</measure>";
+$currentdata .= "</measures>";
 echo $currentdata;

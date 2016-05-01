@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WStation1</string>
+    <string name="app_name">Aktuella temperaturer</string>
 
     <string name="dummy_button">Trends</string>
     <string name="dummy_content">Temperatures\nTesting...Ä</string>

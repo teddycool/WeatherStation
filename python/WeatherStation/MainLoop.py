@@ -47,16 +47,15 @@ class MainLoop(object):
         #    self._alarmBuzzer.setState('hush')
 
         if time.time() - self._lastSensorUpdate > config["UpdateInterval"]["Sensors"]:
+            self._lastSensorUpdate = time.time()
             self._sensorLed.activate(True)
             self._sensors.update()
             self._server.push(self._sensors, 'short')
-            self._lastSensorUpdate = time.time()
             print "Sensor values: " + self._sensors.toString()
             #self._freezerAlarm.update(self._sensors.sensorvaluesdict["FreezerTemp"]) #{current, trendlist}
 
         if time.time() - self._lastServerPush > config["UpdateInterval"]["Server"]:
             self._server.push(self._sensors, 'long')
             self._lastServerPush = time.time()
-
         time.sleep(0.1)
 
