@@ -1,8 +1,14 @@
 __author__ = 'teddycool'
-
+import sys
 from Main import Main
 weatherstationloop=Main()
-weatherstationloop.run()
+try:
+    weatherstationloop.run()
+except:
+    e = sys.exc_info()
+    f = file("\home\pi\WeatherStation\exclog.log",'w')
+    for l in e:
+        f.write(str(l))
 
 
 

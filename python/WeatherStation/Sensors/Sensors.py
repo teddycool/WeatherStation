@@ -31,23 +31,19 @@ class Sensors(object):
         self._outdoorHum = SHT.SHT21(1)
         self._light = TSL2561.TSL2561()
 
-        try:
-           self.sensorvaluesdict = pickle.load(open('valuesdict.pickle','rb'))
-           print "Loaded values dictionary...."
-        except:
-            import copy
-            self.sensorvaluesdict={}
-            valuesdict = {"Current": 0, "TrendList": []}
-            measurements = ["IndoorTemp","OutdoorTemp", "IndoorHum", "OutdoorHum", "OutdoorBar","FridgeTempUpper", "FridgeTempLower", "FreezerTemp", "ALight", "IrLight"]
-            for meassure in measurements:
-                self.sensorvaluesdict[meassure]= copy.deepcopy(valuesdict)
-            print "Created values dictionary..."
+
+        import copy
+        self.sensorvaluesdict={}
+        valuesdict = {"Current": 0, "TrendList": []}
+        measurements = ["IndoorTemp","OutdoorTemp", "IndoorHum", "OutdoorHum", "OutdoorBar","FridgeTempUpper", "FridgeTempLower", "FreezerTemp", "ALight", "IrLight"]
+        for meassure in measurements:
+            self.sensorvaluesdict[meassure]= copy.deepcopy(valuesdict)
+        print "Created values dictionary..."
 
     def initialize(self):
         return
 
     def update(self):
-
         self._updateValues()
 
     def _updateValues(self):
@@ -68,10 +64,10 @@ class Sensors(object):
         self.sensorvaluesdict["ALight"]["Current"] = str(round(self._light.readIR(),1))
         self.sensorvaluesdict["IrLight"]["Current"] = self._light.readLux()
 
-        for key in self.sensorvaluesdict:
-            self.sensorvaluesdict[key]["TrendList"] = self._updateValuesList(self.sensorvaluesdict[key]["Current"], self.sensorvaluesdict[key]["TrendList"] )
-        pickle.dump(self.sensorvaluesdict,open('valuesdict.pickle','wb'))
-        print "Dumping current valuesdict to file"
+#       for key in self.sensorvaluesdict:
+#            self.sensorvaluesdict[key]["TrendList"] = self._updateValuesList(self.sensorvaluesdict[key]["Current"], self.sensorvaluesdict[key]["TrendList"] )
+#        pickle.dump(self.sensorvaluesdict,open('valuesdict.pickle','wb'))
+#        print "Dumping current valuesdict to file"
         print "Updating of sensor values finished: " + str(time.time())
 
     def _updateValuesList(self,value, valuelist):

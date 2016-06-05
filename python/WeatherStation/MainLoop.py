@@ -54,8 +54,8 @@ class MainLoop(object):
             print "Sensor values: " + self._sensors.toString()
             #self._freezerAlarm.update(self._sensors.sensorvaluesdict["FreezerTemp"]) #{current, trendlist}
 
-        if time.time() - self._lastServerPush > config["UpdateInterval"]["Server"]:
-            self._server.push(self._sensors, 'long')
-            self._lastServerPush = time.time()
-        time.sleep(0.1)
-
+            if time.time() - self._lastServerPush > config["UpdateInterval"]["Server"]:
+                self._server.push(self._sensors, 'long')
+                self._lastServerPush = time.time()
+        else:
+            time.sleep(0.5)

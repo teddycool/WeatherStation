@@ -19,7 +19,7 @@ class Server(object):
             try:
                 for url in self._urlcache:
                     urllib2.urlopen(url)
-                    time.sleep(0.1)
+                    time.sleep(0.5)
                 self._urlcache = []
                 print "Data sucessfully sent to server! URL-cache is  now empty"
             except:
