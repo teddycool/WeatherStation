@@ -1,7 +1,5 @@
 __author__ = 'teddycool'
 
-import os, sys, pygame
-from pygame.locals import *
 import time
 import MainLoop
 from WeatherStationConfig import config
@@ -18,18 +16,5 @@ class Main(object):
         self._mainLoop.initialize()
         running = True
         while running:
-            try:
-                self._mainLoop.update()
-            except Exception as e:
-                running = False
-                print str(e)
-                #self._lightcontrolPwm.ChangeDutyCycle(100)
-                #self._lightcontrolPwm.stop()
-                #GPIO.cleanup()
-
-#Testcode to run module. Standard Python way of testing modules.
-
-if __name__ == "__main__":
-
-    weatherstationloop=Main()
-    weatherstationloop.run()
+            self._mainLoop.update()
+            time.sleep(0.5)

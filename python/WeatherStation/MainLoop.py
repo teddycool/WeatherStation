@@ -57,5 +57,3 @@ class MainLoop(object):
             if time.time() - self._lastServerPush > config["UpdateInterval"]["Server"]:
                 self._server.push(self._sensors, 'long')
                 self._lastServerPush = time.time()
-        else:
-            time.sleep(0.5)
