@@ -6,7 +6,7 @@ try:
     weatherstationloop.run()
 except:
     e = sys.exc_info()
-    f = file("\home\pi\WeatherStation\exclog.log",'w')
+    f = file("exclog.log",'w')
     for l in e:
         f.write(str(l))
 

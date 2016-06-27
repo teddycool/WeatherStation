@@ -88,8 +88,10 @@ class TSL2561:
         if (self.gain==1):
            ambient *= 16    # scale 1x to 16x
            IR *= 16         # scale 1x to 16x
-
-        ratio = (IR / float(ambient)) # changed to make it run under python 2
+        try:
+            ratio = (IR / float(ambient)) # changed to make it run under python 2
+        except:
+            return "N/A"
 
         if (self.debug):
             print "IR Result", IR
