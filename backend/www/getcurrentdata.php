@@ -7,7 +7,7 @@ if (mysqli_connect_error()) {
    exit();
 }
 $query = <<< EOD
-SELECT * FROM `ws_data_shortterm` order by measuretime DESC limit 1
+SELECT * FROM `ws_data_shortterm` WHERE fridgetemphigh is not NULL order by measuretime DESC limit 1
 EOD;
 // Perform the query
 $res = $mysqli->query($query)
@@ -25,6 +25,8 @@ while($row1 = $res->fetch_object()) {
     $indoortemp    = $row1->indoortemp;
     $indoorhum     = $row1->indoorhum;
     $time          = $row1->measuretime;
+    $irlight       = $row1->irlight;
+    $amblight     = $row1->amblight;
 }
 $currentdata =<<<EOD
 <?xml version="1.0" encoding="iso-8859-1"?>
@@ -39,6 +41,8 @@ $currentdata .= "<outdoorhum> {$outdoorhum} </outdoorhum>";
 $currentdata .= "<outdoorbar> {$outdoorbar} </outdoorbar>";
 $currentdata .= "<indoortemp> {$indoortemp} </indoortemp>";
 $currentdata .= "<indoorhum> {$indoorhum} </indoorhum>";
+$currentdata .= "<irlight> {$irlight} </iirlight>";
+$currentdata .= "<amblight> {$amblight} </amblight>";
 $currentdata .= "</measure>";
 $currentdata .= "</measures>";
 echo $currentdata;

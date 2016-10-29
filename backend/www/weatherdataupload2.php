@@ -9,7 +9,10 @@
 error_reporting(E_ALL|E_STRICT);
 require_once('config.php');
 date_default_timezone_set("Europe/Berlin");
-$servertime = time();  //PHP time...
+// ("%Y-%m-%d %H:%M:%S") 
+$servertime = date("Y-m-d H:i:s");
+
+//$servertime= ( "%Y-%m-%d %H:%M:%S",time());
 
 // Get all variables.
 $AllData = $_SERVER["QUERY_STRING"];
@@ -17,8 +20,8 @@ $AllData = $_SERVER["QUERY_STRING"];
 //weatherdata from query-string
 
 
-$atable             = isset($_GET['table']) ? $_GET['table'] : 'NULL';
-$atimestamp             = isset($_GET['time']) ? $_GET['time'] : 'NULL';
+$atable                     = isset($_GET['table']) ? $_GET['table'] : 'NULL';
+$atimestamp             = isset($_GET['time']) ? $_GET['time'] : $servertime;
 $afridgetemphigh        = isset($_GET['FridgeTempUpper']) ? $_GET['FridgeTempUpper'] : 'NULL';
 $afridgetemplow         = isset($_GET['FridgeTempLower']) ? $_GET['FridgeTempLower'] : 'NULL';
 $afreezertemp         = isset($_GET['FreezerTemp']) ? $_GET['FreezerTemp'] : 'NULL';
@@ -30,6 +33,7 @@ $aoutdoorbar            = isset($_GET['OutdoorBar']) ? $_GET['OutdoorBar'] : 'NU
 $airlightlevel          = isset($_GET['IrLight']) ? $_GET['IrLight'] : 'NULL';
 $aambilightlevel          = isset($_GET['ALight']) ? $_GET['ALight'] : 'NULL';
 
+echo $servertime;
 
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 if (mysqli_connect_error()) {

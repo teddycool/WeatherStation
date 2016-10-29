@@ -24,7 +24,7 @@ if (mysqli_connect_error()) {
 
 
 $query = <<< EOD
-SELECT * FROM `ws_data_shortterm` order by measuretime DESC limit 1
+SELECT * FROM `ws_data_shortterm` WHERE fridgetemphigh is not NULL order by measuretime DESC limit 1
 EOD;
 // Perform the query
 $res = $mysqli->query($query)
@@ -41,14 +41,18 @@ while($row1 = $res->fetch_object()) {
     $indoortemp    = $row1->indoortemp;
     $indoorhum     = $row1->indoorhum;
     $time          = $row1->measuretime;  
+    $irlight       = $row1->irlight;
+    $amblight     = $row1->amblight;
     
     
 }
 $html .= "<h2>Senaste m&aumltningen:</h2>";
 $html .= "<br/>Tid:   {$time}<br/><br/>";
-$html .= "Kylen: {$fridgetemplow}C, {$fridgetemphigh}C<br/>";
+$html .= "Kylen: {$fridgetemplow}C (nere), {$fridgetemphigh}C (uppe)<br/>";
 $html .= "Frysen: {$freezertemp}C<br/><br/>";
-$html .= "Ute:  {$outdoortemp}C, {$outdoorhum}% {$outdoorbar}kPa<br/>";
-$html .= "Inne: {$indoortemp}C, {$indoorhum}%";
+//$html .= "Ute:  {$outdoortemp}C, {$outdoorhum}% {$outdoorbar}kPa<br/>";
+$html .= "Inne: {$indoortemp}C, {$indoorhum}%<br/><br/>";
+$html .= "IR:{$irlight} Lux, Ambiet: {$amblight} Lux";
+
 
 print $html."</html>";
