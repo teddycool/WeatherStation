@@ -21,7 +21,7 @@ EOD;
 $res = $mysqli->query($query)
                         or die("Could not query database = \n {$query}");
 
-$outdoortemp='-';
+$outdoortemp='---';
 
 while($row1 = $res->fetch_object()) {
     $outdoortemp   = $row1->outdoortemp;
